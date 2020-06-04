@@ -1,1 +1,5 @@
-server
+/cmd/server/server
+/cmd/server/main
+/server
+/home.js
+/home.js.map
