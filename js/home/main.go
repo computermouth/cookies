@@ -2,14 +2,14 @@ package main
 
 import (
     "net/http"
-    //~ "text/template"
-    //~ "time"
-    //~ "github.com/computermouth/cookies/pkg/dynamic"
+    "text/template"
+    "time"
+    "github.com/computermouth/cookies/pkg/dynamic"
     "honnef.co/go/js/dom"
-    //~ "encoding/json"
-    //~ "fmt"
-    //~ "io/ioutil"
-    //~ "bytes"
+    "encoding/json"
+    "fmt"
+    "io/ioutil"
+    "bytes"
 )
 
 func main(){
@@ -18,29 +18,27 @@ func main(){
 	
 		d := dom.GetWindow().Document()
 		elements := d.GetElementsByClassName("dynamic")
-		//~ if len(elements) > 1 {
-			//~ fmt.Println("TODO: handleme")
-		//~ }
+		if len(elements) > 1 {
+			fmt.Println("TODO: handleme")
+		}
 		
-		//~ res, _ := http.Get("/projects")
-		_, _ = http.Get("/projects")
-		//~ respdata, _ := ioutil.ReadAll(res.Body)
+		res, _ := http.Get("/projects")
+		respdata, _ := ioutil.ReadAll(res.Body)
 		
-		//~ projects := []dynamic.Project{}
-		//~ json.Unmarshal(respdata, &projects)
+		projects := []dynamic.Project{}
+		json.Unmarshal(respdata, &projects)
 		
-		//~ t := template.Must(template.New("homedynamic").Parse(dynamic.HomeBody))
+		t := template.Must(template.New("homedynamic").Parse(dynamic.HomeBody))
 		
-		//~ var tmplbytes bytes.Buffer
-		//~ err := t.Execute(&tmplbytes, projects)
-		//~ if err != nil {
-			//~ fmt.Println(err)
-		//~ }
+		var tmplbytes bytes.Buffer
+		err := t.Execute(&tmplbytes, projects)
+		if err != nil {
+			fmt.Println(err)
+		}
 		
-		//~ elements[0].SetInnerHTML(tmplbytes.String())
-		elements[0].SetInnerHTML("ok")
+		elements[0].SetInnerHTML(tmplbytes.String())
 		
-		//~ time.Sleep(2 * time.Second)
+		time.Sleep(2 * time.Second)
 	}
 	
 }
